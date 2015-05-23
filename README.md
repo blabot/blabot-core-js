@@ -1,6 +1,5 @@
 # Blabot – JavaScript powered Core
 
-## About
 Blabot is exceptionally language faithful generator of dummy text. Feel free to have some fun using [Blabot.net](http://blabot.net)
 
 ## Installat & Setup
