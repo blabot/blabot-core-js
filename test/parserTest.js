@@ -75,7 +75,7 @@ describe('Parser', function () {
       it('should return dictionary with word', function () {
         var dictionary= {};
         var expectName = 'words';
-        var expectValue = {'w8': ['slovíčko']};
+        var expectValue = {'8': ['slovíčko']};
         P.extractWords(dictionary, '', 'slovíčko');
         dictionary.should.have.property(expectName, expectValue);
       });
@@ -85,7 +85,7 @@ describe('Parser', function () {
       it('should return dictionary with word', function () {
         var dictionary= {};
         var expectName = 'words';
-        var expectValue = {'w8': ['slovíčko']};
+        var expectValue = {'8': ['slovíčko']};
         P.extractWords(dictionary, '', 'slovíčko slovíčko');
         dictionary.should.have.property(expectName, expectValue);
       });
@@ -96,11 +96,11 @@ describe('Parser', function () {
         var dictionary = {};
         var expectName = 'words';
         var expectValue = {
-          'w1': ['á'],
-          'w2': ['bb'],
-          'w3': ['ččč'],
-          'w4': ['ďďďď'],
-          'w5': ['ěéěéě']
+          '1': ['á'],
+          '2': ['bb'],
+          '3': ['ččč'],
+          '4': ['ďďďď'],
+          '5': ['ěéěéě']
         };
         P.extractWords(dictionary, '', 'Á bb, ččč ďďďď - ĚéĚÉě!');
         dictionary.should.have.property(expectName, expectValue);
@@ -111,11 +111,11 @@ describe('Parser', function () {
       it('should return dictionary with words', function () {
         var expectName = 'words';
         var expectValue = {
-          'w1': ['á'],
-          'w2': ['bb'],
-          'w3': ['č’č'],
-          'w4': ['ďď—ď'],
-          'w5': ['ěé.éě']
+          '1': ['á'],
+          '2': ['bb'],
+          '3': ['č’č'],
+          '4': ['ďď—ď'],
+          '5': ['ěé.éě']
         };
         var dictionary = {};
         var text = 'Á bb, č’č ďď—ď - ěé.Éě!';
@@ -160,13 +160,13 @@ describe('Parser', function () {
         var text = " Á\tbb čurák ,\n č'č?    Ďď—ď -   KURVA ěéĚÉě! FfFf'f 1234.67. ";
         var expect = {
           'words': {
-            'w1': ['á'],
-            'w2': ['bb'],
-            'w3': ["č'č"],
-            'w4': ['ďď—ď'],
-            'w5': ['ěéěéě'],
-            'w6': ["ffff'f"],
-            'w7': ['1234.67']
+            '1': ['á'],
+            '2': ['bb'],
+            '3': ["č'č"],
+            '4': ['ďď—ď'],
+            '5': ['ěéěéě'],
+            '6': ["ffff'f"],
+            '7': ['1234.67']
           },
           'sentences': [
             "<1> <2>, <3>?",
@@ -197,13 +197,13 @@ describe('Parser', function () {
 
         var dictionary = {
           'words': {
-            'w1': ['á'],
-            'w2': ['bb'],
-            'w3': ["č'č"],
-            'w4': ['ďď—ď'],
-            'w5': ['ěéěéě'],
-            'w6': ["ffff'f"],
-            'w7': ['1234.67']
+            '1': ['á'],
+            '2': ['bb'],
+            '3': ["č'č"],
+            '4': ['ďď—ď'],
+            '5': ['ěéěéě'],
+            '6': ["ffff'f"],
+            '7': ['1234.67']
           },
           'sentences': [
             "<1> <2>, <3>?",
@@ -226,15 +226,15 @@ describe('Parser', function () {
         var text = "Apaců'ka – fúndé.můka! Fundé—káve  , kávecuka…";
         var expect = {
           'words': {
-            'w1': ['á'],
-            'w2': ['bb'],
-            'w3': ["č'č"],
-            'w4': ['ďď—ď'],
-            'w5': ['ěéěéě'],
-            'w6': ["ffff'f"],
-            'w7': ['1234.67'],
-            'w8': ["apaců'ka", "kávecuka"],
-            'w10': ["fúndé.můka", "fundé—káve"]
+            '1': ['á'],
+            '2': ['bb'],
+            '3': ["č'č"],
+            '4': ['ďď—ď'],
+            '5': ['ěéěéě'],
+            '6': ["ffff'f"],
+            '7': ['1234.67'],
+            '8': ["apaců'ka", "kávecuka"],
+            '10': ["fúndé.můka", "fundé—káve"]
           },
           'sentences': [
             "<1> <2>, <3>?",
