@@ -3,7 +3,6 @@ var should = require('should');
 var G = require('../lib/generator');
 
 describe('generator', function () {
-
   describe('pickRandomSentence', function () {
     it('given dictionary should pick random sentence', function () {
       var dict = {
@@ -14,27 +13,21 @@ describe('generator', function () {
     });
   });
 
-  describe('pickRandomWordByLength', function () {
+  describe('pickRandomWordOfLength', function () {
     it('given dictionary and length should pick random word of given length', function () {
       var dict = {
         words: {
-          'w1': ['a', 'b', 'c'],
-          'w2': ['aa', 'bb', 'cc'],
-          'w3': ['aaa', 'bbb', 'ccc']
+          '1': ['a', 'b', 'c'],
+          '2': ['aa', 'bb', 'cc'],
+          '3': ['aaa', 'bbb', 'ccc']
         }
       };
 
-      var pickedWord1 = G.pickRandomWordByLength(1, dict);
-      dict.words.w1.should.containEql(pickedWord1);
-
-      var pickedWord2 = G.pickRandomWordByLength(2, dict);
-      dict.words.w2.should.containEql(pickedWord2);
-
-      var pickedWordBad = G.pickRandomWordByLength(3, dict);
-      dict.words.w2.should.not.containEql(pickedWordBad);
-
-      var pickedWord5 = G.pickRandomWordByLength(5, dict);
-      assert.equal('', pickedWord5);
+      var prwl = G.pickRandomWordOfLength(dict);
+      dict.words[1].should.containEql(prwl(1));
+      dict.words[2].should.containEql(prwl(2));
+      dict.words[2].should.not.containEql(prwl(3));
+      assert.equal('', prwl(5));
     });
   });
 
@@ -42,9 +35,9 @@ describe('generator', function () {
     it('given simple dictionary should build sentence', function(){
       var dict = {
         words: {
-          'w1': ['a'],
-          'w2': ['bb'],
-          'w3': ['ccc']
+          '1': ['a'],
+          '2': ['bb'],
+          '3': ['ccc']
         },
         sentences: ['<1>, <2>–<3>?']
       };
@@ -55,9 +48,9 @@ describe('generator', function () {
     it('given more complex dictionary should build sentence', function(){
       var dict = {
         words: {
-          'w1': ['a', 'b'],
-          'w2': ['aa', 'bb'],
-          'w3': ['aaa', 'bbb']
+          '1': ['a', 'b'],
+          '2': ['aa', 'bb'],
+          '3': ['aaa', 'bbb']
         },
         sentences: [
           '<1> – <2>!',
