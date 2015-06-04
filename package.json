@@ -1,15 +1,16 @@
 {
-  "name": "core-js",
+  "name": "blabot-core",
   "version": "0.0.1",
   "description": "Blabot core engine powered by JavaScript",
-  "main": "index.js",
+  "main": "build/blabot.js",
   "scripts": {
     "test": "mocha --compilers js:babel/register",
-    "dev": "mocha -w --compilers js:babel/register"
+    "dev": "mocha -w --compilers js:babel/register",
+    "build": "babel lib --out-dir build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/blabot/core-js.git"
+    "url": "https://github.com/blabot/blabot-core-js.git"
   },
   "keywords": [
     "blabot",
@@ -20,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/blabot/core-js/issues"
   },
-  "homepage": "https://github.com/blabot/core-js",
+  "homepage": "https://github.com/blabot/blabot-core-js",
   "devDependencies": {
     "babel": "^5.4.7",
     "mocha": "^2.2.5",
