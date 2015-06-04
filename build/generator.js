@@ -30,7 +30,7 @@ var pickRandomWordOfLength = R.curry(function (dictionary, length) {
 exports.pickRandomWordOfLength = pickRandomWordOfLength;
 
 function buildSentence(dictionary) {
-  var regexpRule = /<(\d)>/g;
+  var regexpRule = /<(\d+)>/g;
   var randomSentence = pickRandomSentence(dictionary);
   var randomWord = R.compose(pickRandomWordOfLength(dictionary), R.nthArg(1));
   return R.replace(regexpRule, randomWord, randomSentence);
