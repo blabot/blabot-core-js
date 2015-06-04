@@ -50,15 +50,21 @@ describe('Generator', function () {
         words: {
           '1': ['a', 'b'],
           '2': ['aa', 'bb'],
-          '3': ['aaa', 'bbb']
+          '3': ['aaa', 'bbb'],
+          '111': ['stojedenáct', 'takystojedenáct']
         },
         sentences: [
           '<1> – <2>!',
-          '<3>, <3>?'
+          '<3>, <3>?',
+          '<111>, <111>…'
         ]
       };
 
       var possibleSentences = [
+        'stojedenáct, takystojedenáct…',
+        'takystojedenáct, stojedenáct…',
+        'stojedenáct, stojedenáct…',
+        'takystojedenáct, takystojedenáct…',
         'aaa, aaa?',
         'bbb, bbb?',
         'aaa, bbb?',
@@ -68,8 +74,11 @@ describe('Generator', function () {
         'b – aa!',
         'b – bb!'
       ];
-      var sentence = G.buildSentence(dict);
-      possibleSentences.should.containEql(sentence);
+
+      for(var i=12; i>0; i--){
+        var sentence = G.buildSentence(dict);
+        possibleSentences.should.containEql(sentence);
+      }
     });
   });
 
