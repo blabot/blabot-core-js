@@ -2,7 +2,7 @@ var assert = require('assert');
 var should = require('should');
 var G = require('../lib/generator');
 
-describe('generator', function () {
+describe('Generator', function () {
   describe('pickRandomSentence', function () {
     it('given dictionary should pick random sentence', function () {
       var dict = {

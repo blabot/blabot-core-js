@@ -4,20 +4,20 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _generatorJs = require('generator.js');
+var _generator = require('./generator');
 
 Object.defineProperty(exports, 'buildSentence', {
   enumerable: true,
   get: function get() {
-    return _generatorJs.buildSentence;
+    return _generator.buildSentence;
   }
 });
 
-var _parserJs = require('parser.js');
+var _parser = require('./parser');
 
 Object.defineProperty(exports, 'parse', {
   enumerable: true,
   get: function get() {
-    return _parserJs.parse;
+    return _parser.parse;
   }
 });
