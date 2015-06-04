@@ -1,6 +1,6 @@
 {
   "name": "blabot-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Blabot core engine powered by JavaScript",
   "main": "build/blabot.js",
   "scripts": {
