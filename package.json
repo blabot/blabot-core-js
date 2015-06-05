@@ -2,11 +2,10 @@
   "name": "blabot-core",
   "version": "0.1.2",
   "description": "Blabot core engine powered by JavaScript",
-  "main": "build/blabot.js",
+  "main": "lib/blabot.js",
   "scripts": {
     "test": "mocha --compilers js:babel/register",
-    "dev": "mocha -w --compilers js:babel/register",
-    "build": "babel lib --out-dir build"
+    "dev": "mocha -w --compilers js:babel/register"
   },
   "repository": {
     "type": "git",

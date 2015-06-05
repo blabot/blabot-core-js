@@ -1,6 +1,6 @@
 var assert = require('assert');
 var should = require('should');
-var B = require('../build/blabot');
+var B = require('..');
 
 describe('Blabot API', function(){
   describe('buildSentence', function(){
