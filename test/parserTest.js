@@ -156,9 +156,23 @@ describe('Parser', function () {
   describe('parse', function(){
     context('given complex text and empty dictionary', function(){
       it('should build full new dictionary', function(){
-        var dictionary = {};
+
+        var config = {
+          'normalizingRules': [
+            ['\\.\\.\\.', '.'],
+            ['\\s+', ' '],
+            [' , ', ', ']
+          ],
+          'badWords': ["kur","píč", "čurá", "mrd", "srá"],
+          'specialWordChars': "'—.",
+          'sentenceDelimiters': "!.?…"
+        };
+        var dictionary = {
+          'config': config
+        };
         var text = " Á\tbb čurák ,\n č'č?    Ďď—ď -   KURVA ěéĚÉě! FfFf'f 1234.67. ";
         var expect = {
+          'config': config,
           'words': {
             '1': ['á'],
             '2': ['bb'],
@@ -175,18 +189,7 @@ describe('Parser', function () {
           ]
         };
 
-        var config = {
-          'normalizingRules': [
-            ['\\.\\.\\.', '.'],
-            ['\\s+', ' '],
-            [' , ', ', ']
-          ],
-          'badWords': ["kur","píč", "čurá", "mrd", "srá"],
-          'specialWordChars': "'—.",
-          'sentenceDelimiters': "!.?…"
-        };
-
-        P.parse(dictionary, config, text);
+        P.parse(dictionary, text);
         dictionary.should.have.property('words', expect.words);
         dictionary.should.have.property('sentences', expect.sentences);
       });
@@ -195,7 +198,18 @@ describe('Parser', function () {
     context('given complex text and non empty dictionary', function(){
       it('should add content to dictionary', function(){
 
+        var config = {
+          'normalizingRules': [
+            ['\\.\\.\\.', '.'],
+            ['\\s+', ' '],
+            [' , ', ', ']
+          ],
+          'badWords': ["kur","píč", "čurá", "mrd", "srá"],
+          'specialWordChars': "'—.",
+          'sentenceDelimiters': "!.?…"
+        };
         var dictionary = {
+          'config': config,
           'words': {
             '1': ['á'],
             '2': ['bb'],
@@ -212,19 +226,9 @@ describe('Parser', function () {
           ]
         };
 
-        var config = {
-          'normalizingRules': [
-            ['\\.\\.\\.', '.'],
-            ['\\s+', ' '],
-            [' , ', ', ']
-          ],
-          'badWords': ["kur","píč", "čurá", "mrd", "srá"],
-          'specialWordChars': "'—.",
-          'sentenceDelimiters': "!.?…"
-        };
-
         var text = "Apaců'ka – fúndé.můka! Fundé—káve  , kávecuka…";
         var expect = {
+          'config': config,
           'words': {
             '1': ['á'],
             '2': ['bb'],
@@ -245,7 +249,7 @@ describe('Parser', function () {
           ]
         };
 
-        P.parse(dictionary, config, text);
+        P.parse(dictionary, text);
         dictionary.should.have.property('words', expect.words);
         dictionary.should.have.property('sentences', expect.sentences);
       });
