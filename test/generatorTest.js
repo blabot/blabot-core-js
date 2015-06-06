@@ -31,7 +31,7 @@ describe('Generator', function () {
     });
   });
 
-  describe('buildSentence', function(){
+  describe('makeSentence', function(){
     it('given simple dictionary should build sentence', function(){
       var dict = {
         words: {
@@ -42,8 +42,8 @@ describe('Generator', function () {
         sentences: ['<1>, <2>–<3>?']
       };
 
-      var sentence = G.buildSentence(dict);
-      assert.equal('a, bb–ccc?', sentence);
+      var sentence = G.makeSentence(dict);
+      assert.equal('A, bb–ccc?', sentence);
     });
     it('given more complex dictionary should build sentence', function(){
       var dict = {
@@ -61,24 +61,74 @@ describe('Generator', function () {
       };
 
       var possibleSentences = [
-        'stojedenáct, takystojedenáct…',
-        'takystojedenáct, stojedenáct…',
-        'stojedenáct, stojedenáct…',
-        'takystojedenáct, takystojedenáct…',
-        'aaa, aaa?',
-        'bbb, bbb?',
-        'aaa, bbb?',
-        'bbb, aaa?',
-        'a – aa!',
-        'a – bb!',
-        'b – aa!',
-        'b – bb!'
+        'Stojedenáct, takystojedenáct…',
+        'Takystojedenáct, stojedenáct…',
+        'Stojedenáct, stojedenáct…',
+        'Takystojedenáct, takystojedenáct…',
+        'Aaa, aaa?',
+        'Bbb, bbb?',
+        'Aaa, bbb?',
+        'Bbb, aaa?',
+        'A – aa!',
+        'A – bb!',
+        'B – aa!',
+        'B – bb!'
       ];
 
       for(var i=12; i>0; i--){
-        var sentence = G.buildSentence(dict);
+        var sentence = G.makeSentence(dict);
         possibleSentences.should.containEql(sentence);
       }
+    });
+  });
+
+  describe('makeSentences', function(){
+    context('given complex dictionary', function(){
+      var dict = {
+        words: {
+          '1': ['a', 'b'],
+          '2': ['aa', 'bb'],
+          '3': ['aaa', 'bbb'],
+          '111': ['stojedenáct', 'takystojedenáct']
+        },
+        sentences: [
+          '<1> – <2>!',
+          '<3>, <3>?',
+          '<111>, <111>…'
+        ]
+      };
+
+      var possibleSentences = [
+        'Stojedenáct, takystojedenáct…',
+        'Takystojedenáct, stojedenáct…',
+        'Stojedenáct, stojedenáct…',
+        'Takystojedenáct, takystojedenáct…',
+        'Aaa, aaa?',
+        'Bbb, bbb?',
+        'Aaa, bbb?',
+        'Bbb, aaa?',
+        'A – aa!',
+        'A – bb!',
+        'B – aa!',
+        'B – bb!'
+      ];
+
+      it('should build one sentence as default', function(){
+        var sentences = G.makeSentences(dict);
+        assert.equal(sentences.length, 1);
+        sentences.forEach(function(sentence){
+          possibleSentences.should.containEql(sentence);
+        });
+      });
+
+      it('should build sentence by count', function(){
+        var count = 42;
+        var sentences = G.makeSentences(dict, count);
+        assert.equal(sentences.length, count);
+        sentences.forEach(function(sentence){
+          possibleSentences.should.containEql(sentence);
+        });
+      });
     });
   });
 
