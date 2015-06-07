@@ -6,22 +6,40 @@ Object.defineProperty(exports, '__esModule', {
 
 var _generator = require('./generator');
 
-Object.defineProperty(exports, 'makeSentence', {
+Object.defineProperty(exports, 'getWord', {
   enumerable: true,
   get: function get() {
-    return _generator.makeSentence;
+    return _generator.getWord;
   }
 });
-Object.defineProperty(exports, 'makeSentences', {
+Object.defineProperty(exports, 'getWords', {
   enumerable: true,
   get: function get() {
-    return _generator.makeSentences;
+    return _generator.getWords;
   }
 });
-Object.defineProperty(exports, 'makeParagraph', {
+Object.defineProperty(exports, 'getSentence', {
   enumerable: true,
   get: function get() {
-    return _generator.makeParagraph;
+    return _generator.getSentence;
+  }
+});
+Object.defineProperty(exports, 'getSentences', {
+  enumerable: true,
+  get: function get() {
+    return _generator.getSentences;
+  }
+});
+Object.defineProperty(exports, 'getParagraph', {
+  enumerable: true,
+  get: function get() {
+    return _generator.getParagraph;
+  }
+});
+Object.defineProperty(exports, 'getParagraphs', {
+  enumerable: true,
+  get: function get() {
+    return _generator.getParagraphs;
   }
 });
 

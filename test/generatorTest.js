@@ -31,7 +31,7 @@ describe('Generator', function () {
     });
   });
 
-  describe('makeSentence', function(){
+  describe('getSentence', function(){
     it('given simple dictionary should build sentence', function(){
       var dict = {
         words: {
@@ -42,7 +42,7 @@ describe('Generator', function () {
         sentences: ['<1>, <2>–<3>?']
       };
 
-      var sentence = G.makeSentence(dict);
+      var sentence = G.getSentence(dict);
       assert.equal('A, bb–ccc?', sentence);
     });
     it('given more complex dictionary should build sentence', function(){
@@ -76,13 +76,13 @@ describe('Generator', function () {
       ];
 
       for(var i=12; i>0; i--){
-        var sentence = G.makeSentence(dict);
+        var sentence = G.getSentence(dict);
         possibleSentences.should.containEql(sentence);
       }
     });
   });
 
-  describe('makeSentences', function(){
+  describe('getSentences', function(){
     context('given complex dictionary', function(){
       var dict = {
         words: {
@@ -114,7 +114,7 @@ describe('Generator', function () {
       ];
 
       it('should build one sentence as default', function(){
-        var sentences = G.makeSentences(dict);
+        var sentences = G.getSentences(dict);
         assert.equal(sentences.length, 1);
         sentences.forEach(function(sentence){
           possibleSentences.should.containEql(sentence);
@@ -123,12 +123,29 @@ describe('Generator', function () {
 
       it('should build sentence by count', function(){
         var count = 42;
-        var sentences = G.makeSentences(dict, count);
+        var sentences = G.getSentences(dict, count);
         assert.equal(sentences.length, count);
         sentences.forEach(function(sentence){
           possibleSentences.should.containEql(sentence);
         });
       });
+    });
+  });
+
+  describe('pickRandomWordLength', function(){
+    it('should pick valid word length', function(){
+      var dict = {
+        words: {
+          '1': ['a', 'b'],
+          '2': ['aa', 'bb'],
+          '3': ['aaa', 'bbb'],
+          '111': ['stojedenáct', 'takystojedenáct']
+        }
+      };
+      for (var i=42; i>0;i--){
+        var actual = G.pickRandomWordLength(dict);
+        dict.words.should.hasOwnProperty(actual);
+      }
     });
   });
 
