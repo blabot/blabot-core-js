@@ -116,8 +116,11 @@ describe('Generator', function () {
       it('should build one sentence as default', function(){
         var sentences = G.getSentences(dict);
         assert.equal(sentences.length, 1);
+        var s = 'some sentence';
         sentences.forEach(function(sentence){
           possibleSentences.should.containEql(sentence);
+          s.should.not.eql(sentence);
+          s = sentence;
         });
       });
 
@@ -145,6 +148,31 @@ describe('Generator', function () {
       for (var i=42; i>0;i--){
         var actual = G.pickRandomWordLength(dict);
         dict.words.should.hasOwnProperty(actual);
+      }
+    });
+  });
+
+  describe('getWord', function(){
+    var dict = {
+      words: {
+        '1': ['a', 'b'],
+        '2': ['aa', 'bb'],
+        '3': ['aaaa', 'bbb'],
+        '4': ['aaaa', 'bbbb'],
+        '5': ['ááááá', 'ččččč'],
+        '6': ['žžžžžž', 'šššššš'],
+        '7': ['řřřřřřř', 'ěěěěěěě']
+      },
+      sentences: [
+        '<1> – <2>!',
+        '<3>, <3>?',
+        '<111>, <111>…'
+      ]
+    };
+    it('should return random word from dictionary', function(){
+      for (var i=42; i>0;i--){
+        var actual = G.getWord(dict);
+        dict.words[actual.length].should.containEql(actual);
       }
     });
   });

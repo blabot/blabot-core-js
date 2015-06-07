@@ -49,7 +49,9 @@ function getSentence(dictionary) {
 var getMultiple = R.curry(function (callback, dictionary) {
   var count = arguments[2] === undefined ? 1 : arguments[2];
 
-  return R.repeat(callback(dictionary), count);
+  var items = [];
+  for (; count > 0; count--) items.push(callback(dictionary));
+  return items;
 });
 
 var getSentences = getMultiple(getSentence);
@@ -68,7 +70,7 @@ var getParagraphs = getMultiple(getParagraph);
 exports.getParagraphs = getParagraphs;
 
 function getWord(dictionary) {
-  return pickRandomWordOfLength(dictionary, pickRandomWordLength);
+  return pickRandomWordOfLength(dictionary, pickRandomWordLength(dictionary));
 }
 
 var getWords = getMultiple(getWord);
