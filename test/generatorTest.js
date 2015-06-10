@@ -3,33 +3,6 @@ var should = require('should');
 var G = require('../lib/generator');
 
 describe('Generator', function () {
-  describe('pickRandomSentence', function () {
-    it('given dictionary should pick random sentence', function () {
-      var dict = {
-        sentences: ['<1>.', '<2>!', '<3>?']
-      };
-      var pickedSentence = G.pickRandomSentence(dict);
-      dict.sentences.should.containEql(pickedSentence);
-    });
-  });
-
-  describe('pickRandomWordOfLength', function () {
-    it('given dictionary and length should pick random word of given length', function () {
-      var dict = {
-        words: {
-          '1': ['a', 'b', 'c'],
-          '2': ['aa', 'bb', 'cc'],
-          '3': ['aaa', 'bbb', 'ccc']
-        }
-      };
-
-      var prwl = G.pickRandomWordOfLength(dict);
-      dict.words[1].should.containEql(prwl(1));
-      dict.words[2].should.containEql(prwl(2));
-      dict.words[2].should.not.containEql(prwl(3));
-      assert.equal('', prwl(5));
-    });
-  });
 
   describe('getSentence', function(){
     it('given simple dictionary should build sentence', function(){
@@ -89,20 +62,20 @@ describe('Generator', function () {
           '1': ['a', 'b'],
           '2': ['aa', 'bb'],
           '3': ['aaa', 'bbb'],
-          '111': ['stojedenáct', 'takystojedenáct']
+          '8': ['fourfour', '12345678']
         },
         sentences: [
           '<1> – <2>!',
           '<3>, <3>?',
-          '<111>, <111>…'
+          '<8>, <8>…'
         ]
       };
 
       var possibleSentences = [
-        'Stojedenáct, takystojedenáct…',
-        'Takystojedenáct, stojedenáct…',
-        'Stojedenáct, stojedenáct…',
-        'Takystojedenáct, takystojedenáct…',
+        'Fourfour, 12345678…',
+        '12345678, fourfour…',
+        'Fourfour, fourfour…',
+        '12345678, 12345678…',
         'Aaa, aaa?',
         'Bbb, bbb?',
         'Aaa, bbb?',
@@ -135,23 +108,6 @@ describe('Generator', function () {
     });
   });
 
-  describe('pickRandomWordLength', function(){
-    it('should pick valid word length', function(){
-      var dict = {
-        words: {
-          '1': ['a', 'b'],
-          '2': ['aa', 'bb'],
-          '3': ['aaa', 'bbb'],
-          '111': ['stojedenáct', 'takystojedenáct']
-        }
-      };
-      for (var i=42; i>0;i--){
-        var actual = G.pickRandomWordLength(dict);
-        dict.words.should.hasOwnProperty(actual);
-      }
-    });
-  });
-
   describe('getWord', function(){
     var dict = {
       words: {
@@ -176,5 +132,4 @@ describe('Generator', function () {
       }
     });
   });
-
 });

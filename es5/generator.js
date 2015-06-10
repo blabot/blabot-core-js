@@ -1,77 +1,104 @@
+//import * as R from 'ramda'
+
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports.pickRandomSentence = pickRandomSentence;
+exports.pickRandom = pickRandom;
+exports.validateDictionary = validateDictionary;
+exports.mixItUpWordsInSentence = mixItUpWordsInSentence;
 exports.getSentence = getSentence;
-exports.getParagraph = getParagraph;
-exports.getWord = getWord;
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-var _ramda = require('ramda');
-
-var R = _interopRequireWildcard(_ramda);
-
-var pickRandom = function pickRandom(array) {
-  return array[Math.floor(Math.random() * array.length)];
-};
-
-function pickRandomSentence(dictionary) {
-  var sentences = R.prop('sentences', dictionary);
-  return pickRandom(sentences);
-}
-
-var pickRandomWordOfLength = R.curry(function (dictionary, length) {
-  var words = R.prop('words', dictionary);
-  var propOrArrayFlipped = R.flip(R.propOr(['']));
-  return pickRandom(propOrArrayFlipped(words, length));
-});
-
-exports.pickRandomWordOfLength = pickRandomWordOfLength;
-var pickRandomWordLength = function pickRandomWordLength(dictionary) {
-  return pickRandom(Object.keys(R.propOr([], 'words', dictionary)));
-};
-
-exports.pickRandomWordLength = pickRandomWordLength;
-var UCFirst = function UCFirst(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-};
-
-function getSentence(dictionary) {
-  var regexpRule = /<(\d+)>/g;
-  var randomSentence = pickRandomSentence(dictionary);
-  var randomWord = R.compose(pickRandomWordOfLength(dictionary), R.nthArg(1));
-  return UCFirst(R.replace(regexpRule, randomWord, randomSentence));
-}
-
-var getMultiple = R.curry(function (callback, dictionary) {
-  var count = arguments[2] === undefined ? 1 : arguments[2];
-
-  var items = [];
-  for (; count > 0; count--) items.push(callback(dictionary));
-  return items;
-});
-
-var getSentences = getMultiple(getSentence);
-
 exports.getSentences = getSentences;
+exports.getParagraph = getParagraph;
+exports.getParagraphs = getParagraphs;
+exports.getWord = getWord;
+exports.getWords = getWords;
+
+function pickRandom(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function UCFirst(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// ======
+
+function validateDictionary(dictionary) {
+  if (dictionary.hasOwnProperty('sentences') === false || dictionary.sentences.length == 0) {
+    throw new Error('Dictionary must have some Sentences');
+  }
+
+  if (dictionary.hasOwnProperty('words') === false || dictionary.words.length == 0) {
+    throw new Error('Dictionary must have some Words');
+  }
+}
+
+// faster than RegExp replace
+
+function mixItUpWordsInSentence(sentence, words) {
+  var outstr = '',
+      start = -1,
+      end = 0;
+  while ((end = sentence.indexOf('<', ++start)) > -1) {
+    outstr += sentence.slice(start, end);
+    start = end;
+    if ((end = sentence.indexOf('>', start)) > -1) {
+      outstr += pickRandom(words[sentence.slice(start + 1, end)]);
+      start = end;
+    }
+  }
+  return outstr + sentence.slice(start);
+}
+
+function getSentence(dictionary) {
+  validateDictionary(dictionary);
+  return UCFirst(mixItUpWordsInSentence(pickRandom(dictionary.sentences), dictionary.words));
+}
+
+function getSentences(dictionary, count) {
+  validateDictionary(dictionary);
+  var items = new Array(count);
+  for (var i = 0; i < count; ++i) {
+    items[i] = UCFirst(mixItUpWordsInSentence(pickRandom(dictionary.sentences), dictionary.words));
+  }
+  return items;
 }
 
 function getParagraph(dictionary) {
   return getSentences(dictionary, getRandomInt(5, 10)).join(' ');
 }
 
-var getParagraphs = getMultiple(getParagraph);
+//export var getParagraphs = getMultiple(getParagraph);
 
-exports.getParagraphs = getParagraphs;
-
-function getWord(dictionary) {
-  return pickRandomWordOfLength(dictionary, pickRandomWordLength(dictionary));
+function getParagraphs(dictionary, count) {
+  validateDictionary(dictionary);
+  var items = new Array(count);
+  for (var i = 0; i < count; ++i) {
+    var paragraph = '';
+    var sCount = getRandomInt(5, 10);
+    for (var j = 0; j < sCount; ++j) {
+      paragraph += UCFirst(mixItUpWordsInSentence(pickRandom(dictionary.sentences), dictionary.words));
+    }
+    items[i] = paragraph;
+  }
+  return items;
 }
 
-var getWords = getMultiple(getWord);
-exports.getWords = getWords;
+function getWord(dictionary) {
+  return pickRandom(dictionary.words[pickRandom(Object.keys(dictionary.words))]);
+}
+
+function getWords(dictionary, count) {
+  validateDictionary(dictionary);
+  var items = new Array(count);
+  for (var i = 0; i < count; ++i) {
+    items[i] = pickRandom(dictionary.words[pickRandom(Object.keys(dictionary.words))]);
+  }
+  return items;
+}
