@@ -42,6 +42,24 @@ Object.defineProperty(exports, 'getParagraphs', {
     return _generator.getParagraphs;
   }
 });
+Object.defineProperty(exports, 'enableCache', {
+  enumerable: true,
+  get: function get() {
+    return _generator.enableCache;
+  }
+});
+Object.defineProperty(exports, 'disableCache', {
+  enumerable: true,
+  get: function get() {
+    return _generator.disableCache;
+  }
+});
+Object.defineProperty(exports, 'getCache', {
+  enumerable: true,
+  get: function get() {
+    return _generator.getCache;
+  }
+});
 
 var _parser = require('./parser');
 
