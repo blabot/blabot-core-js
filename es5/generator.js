@@ -1,11 +1,8 @@
-//import * as R from 'ramda'
-
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports.pickRandom = pickRandom;
 exports.validateDictionary = validateDictionary;
 exports.mixItUpWordsInSentence = mixItUpWordsInSentence;
 exports.getSentence = getSentence;
@@ -14,20 +11,19 @@ exports.getParagraph = getParagraph;
 exports.getParagraphs = getParagraphs;
 exports.getWord = getWord;
 exports.getWords = getWords;
+var random = Math.random;
 
 function pickRandom(array) {
-  return array[Math.floor(Math.random() * array.length)];
+  return array[~ ~(random() * array.length)];
+}
+
+function getRandomInt(min, max) {
+  return ~ ~(random() * (max - min + 1) + min);
 }
 
 function UCFirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// ======
 
 function validateDictionary(dictionary) {
   if (dictionary.hasOwnProperty('sentences') === false || dictionary.sentences.length == 0) {
@@ -62,6 +58,7 @@ function getSentence(dictionary) {
 }
 
 function getSentences(dictionary, count) {
+  if (typeof count === 'undefined') count = 1;
   validateDictionary(dictionary);
   var items = new Array(count);
   for (var i = 0; i < count; ++i) {
@@ -73,8 +70,6 @@ function getSentences(dictionary, count) {
 function getParagraph(dictionary) {
   return getSentences(dictionary, getRandomInt(5, 10)).join(' ');
 }
-
-//export var getParagraphs = getMultiple(getParagraph);
 
 function getParagraphs(dictionary, count) {
   validateDictionary(dictionary);

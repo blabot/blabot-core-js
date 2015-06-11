@@ -1,5 +1,4 @@
-var assert = require('assert');
-var G = require('../es5/generator');
+var G = require('../lib/generator');
 
 var count = 10e4;
 
@@ -11,7 +10,7 @@ var dict = {
     '4': ['aaaa', 'bbbb'],
     '5': ['ááááá', 'ččččč'],
     '6': ['žžžžžž', 'šššššš'],
-    '7': ['řřřřřřř', 'ěěěěěěě']
+    '7': ['řřřřřřř', 'ěěěěěěě', 'aaaaaaa', 'fffffff', 'rrrrrrr', 'lllllll']
   },
   sentences: [
     '<1> – <2> <6>+ <7>, <4> <3> <3>, <1> – <5> <7>!',
@@ -24,12 +23,7 @@ var dict = {
   ]
 };
 
-describe.only('Generator Performance', function () {
-  it('should pickRandom fast', function () {
-    for (var i = 0; i < count; i++) {
-      G.pickRandom(dict.words[7]);
-    }
-  });
+describe('Generator Performance', function () {
 
   it('should mixItUpWordsInSentence fast', function () {
     for (var i = 0; i < count; i++) {
