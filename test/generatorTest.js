@@ -132,4 +132,20 @@ describe('Generator', function () {
       }
     });
   });
+
+  describe.skip('getParagraph', function(){
+    var dict = {
+      words: {
+        '1': ['a']
+      },
+      sentences: [
+        '<1>!'
+      ]
+    };
+    it('should return sentences separated by space', function(){
+        var actual = G.getParagraph(dict);
+        //dict.words[actual.length].should.containEql(actual);
+      //console.log(actual);
+    });
+  });
 });

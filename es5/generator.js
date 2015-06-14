@@ -116,9 +116,9 @@ function getParagraph(dictionary) {
   var paragraph = '';
   var sCount = getRandomInt(5, 10);
   for (var j = 0; j < sCount; ++j) {
-    paragraph += '' + _getSentence(dictionary);
+    paragraph += ' ' + _getSentence(dictionary);
   }
-  return paragraph;
+  return paragraph.trim();
 }
 
 function getParagraphs(dictionary, count) {
