@@ -4,6 +4,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports.unique = unique;
 exports.enableCache = enableCache;
 exports.disableCache = disableCache;
 exports.getCache = getCache;
@@ -35,16 +36,46 @@ function UCFirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function uniqueES5(arr) {
+  var n = {},
+      r = [];
+  for (var i = 0; i < arr.length; i++) {
+    if (!n[arr[i]]) {
+      n[arr[i]] = true;
+      r.push(arr[i]);
+    }
+  }
+  return r;
+}
+
+function unique(arr) {
+  if (typeof Set !== 'undefined') {
+    var out = [],
+        seen = new Set(),
+        i = arr.length;
+
+    while (i--) {
+      if (!seen.has(arr[i])) {
+        out[out.length] = arr[i];
+        seen.add(arr[i]);
+      }
+    }
+    return out;
+  } else {
+    return uniqueES5(arr);
+  }
+}
+
 // Cache ======================
 
 function enableCache(dictionary, size) {
-  if (typeof size === 'undefined') size = 5;
+  if (typeof size === 'undefined') size = 7;
   validateDictionary(dictionary);
   cache[0] = false;
   var sLen = dictionary['sentences'].length;
-  cache[1] = getSentences(dictionary, sLen * size);
+  cache[1] = unique(getSentences(dictionary, sLen * size));
   var wLen = Object.keys(dictionary['words']).length;
-  cache[2] = getWords(dictionary, wLen * size);
+  cache[2] = unique(getWords(dictionary, wLen * size));
   cache[0] = true;
   return true;
 }

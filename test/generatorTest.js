@@ -133,7 +133,7 @@ describe('Generator', function () {
     });
   });
 
-  describe.skip('getParagraph', function(){
+  describe('getParagraph', function(){
     var dict = {
       words: {
         '1': ['a']
@@ -142,10 +142,13 @@ describe('Generator', function () {
         '<1>!'
       ]
     };
-    it('should return sentences separated by space', function(){
-        var actual = G.getParagraph(dict);
-        //dict.words[actual.length].should.containEql(actual);
-      //console.log(actual);
+    it('should return 5-10 sentences separated by space', function(){
+      var actual = G.getParagraph(dict).split(' ');
+      actual.length.should.be.above(4);
+      actual.length.should.be.below(11);
+      var actualUq = G.unique(actual);
+      actualUq.length.should.be.eql(1);
+      actualUq[0].should.eql('A!');
     });
   });
 });

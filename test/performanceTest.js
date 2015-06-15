@@ -119,5 +119,4 @@ describe('Generator Performance', function () {
     });
   });
 
-
 });
