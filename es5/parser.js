@@ -5,13 +5,11 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.stringToRegexp = stringToRegexp;
 exports.replaceByRegexp = replaceByRegexp;
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-var _ramda = require('ramda');
-
-var R = _interopRequireWildcard(_ramda);
-
+exports.normalizeByRegexps = normalizeByRegexps;
+exports.stripBadWords = stripBadWords;
+exports.extractWords = extractWords;
+exports.extractSentences = extractSentences;
+exports.parse = parse;
 var RE_WORD = '[A-Za-zÁÉÍÔÚÜ-Ýáéíôúü-ýĀ-ž0-9]'; //cz/sk \w definition
 
 function stringToRegexp(string, options) {
@@ -32,7 +30,7 @@ function replaceByRegexp(reString, replaceBy, inText) {
   return inText.replace(re, replaceBy);
 }
 
-var normalizeByRegexps = R.curry(function (rules, text) {
+function normalizeByRegexps(rules, text) {
   if (rules == []) return text;
   rules.map(function () {
     var reStr = arguments[0][0];
@@ -40,10 +38,9 @@ var normalizeByRegexps = R.curry(function (rules, text) {
     text = replaceByRegexp(reStr, newStr, text);
   });
   return text;
-});
+}
 
-exports.normalizeByRegexps = normalizeByRegexps;
-var stripBadWords = R.curry(function (words, text) {
+function stripBadWords(words, text) {
   if (words == []) return text;
   words.map(function () {
     var badWord = arguments[0];
@@ -52,10 +49,9 @@ var stripBadWords = R.curry(function (words, text) {
     text = replaceByRegexp(reStr, '', text);
   });
   return text;
-});
+}
 
-exports.stripBadWords = stripBadWords;
-var extractWords = R.curry(function (dictionary, specialChars, text) {
+function extractWords(dictionary, specialChars, text) {
 
   if (typeof dictionary['words'] === 'undefined') dictionary['words'] = {};
   if (typeof specialChars === 'undefined') specialChars = '';
@@ -72,11 +68,9 @@ var extractWords = R.curry(function (dictionary, specialChars, text) {
     return '<' + wLen + '>';
   });
   return text;
-});
+}
 
-exports.extractWords = extractWords;
-var extractSentences = R.curry(function (dictionary, delimiters, text) {
-
+function extractSentences(dictionary, delimiters, text) {
   if (dictionary['sentences'] === 'undefined') dictionary['sentences'] = [];
   if (typeof delimiters === 'undefined') delimiters = '';
 
@@ -89,10 +83,9 @@ var extractSentences = R.curry(function (dictionary, delimiters, text) {
     if (sentences.indexOf(sentence) == -1) dictionary.sentences = sentences.concat([sentence]);
   });
   return true;
-});
+}
 
-exports.extractSentences = extractSentences;
-var parse = R.curry(function parse(dictionary, text) {
+function parse(dictionary, text) {
 
   if (typeof dictionary !== 'object') throw new Error('Dictionary must be object');
   if (dictionary['sentences'] === 'undefined') dictionary['sentences'] = [];
@@ -101,6 +94,9 @@ var parse = R.curry(function parse(dictionary, text) {
 
   var config = dictionary.config || {};
 
-  return R.pipe(normalizeByRegexps(config.normalizingRules || []), stripBadWords(config.badWords || []), extractWords(dictionary, config.specialWordChars || ''), extractSentences(dictionary, config.sentenceDelimiters || ''))(text);
-});
-exports.parse = parse;
+  if (typeof config.normalizingRules !== 'undefined') text = normalizeByRegexps(config.normalizingRules, text);
+  if (typeof config.badWords !== 'undefined') text = stripBadWords(config.badWords, text);
+
+  text = extractWords(dictionary, config.specialWordChars || '', text);
+  return extractSentences(dictionary, config.sentenceDelimiters || '', text);
+}
