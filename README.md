@@ -36,6 +36,8 @@ console.log(sentences);
   - Return one random paragraph with random count of 5–10 sentences
 - Blabot.getParagraphs(dictionary, count)
   - Return N random paragraphs as array
+  
+### Cache
 
 - Blabot.enableCache(dictionary, [size=7])
   - Warm up cache and all generator will automagically became superfast  
