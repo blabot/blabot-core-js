@@ -24,31 +24,31 @@ console.log(sentences);
 
 ### Generator
 
-- Blabot.getWord(dictionary)
+- `Blabot.getWord(dictionary)`
   - Return one random word
-- Blabot.getWords(dictionary, count)
+- `Blabot.getWords(dictionary, count)`
   - Return N random words as array
-- Blabot.getSentence(dictionary)
+- `Blabot.getSentence(dictionary)`
   - Return one sentence with random words
-- Blabot.getSentences(dictionary, count)
+- `Blabot.getSentences(dictionary, count)`
   - Return N random sentences as array
-- Blabot.getParagraph(dictionary)
+- `Blabot.getParagraph(dictionary)`
   - Return one random paragraph with random count of 5–10 sentences
-- Blabot.getParagraphs(dictionary, count)
+- `Blabot.getParagraphs(dictionary, count)`
   - Return N random paragraphs as array
   
 ### Cache
 
-- Blabot.enableCache(dictionary, [size=7])
+- `Blabot.enableCache(dictionary, [size=7])`
   - Warm up cache and all generator will automagically became superfast  
-- Blabot.disableCache()
+- `Blabot.disableCache()`
   - Disable all cache goodness and purge cache
-- Blabot.getCache()
+- `Blabot.getCache()`
   - Returns cache object
 
 ### Parser
 
-- Blabot.parse(dictionary, text)
+- `Blabot.parse(dictionary, text)`
   - Parse given text into dictionary by dictionary.config rules
   
 ### Dictionary
