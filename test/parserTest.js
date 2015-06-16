@@ -4,12 +4,30 @@ var P = require('../lib/parser');
 
 describe('Parser', function () {
 
+  describe('stringToRegexp', function () {
+    context('given nothing', function () {
+      it('should return empty regex', function () {
+        var expect = new RegExp('.^', '');
+        var actual = P.stringToRegexp();
+        actual.should.be.type('object');
+        actual.toString().should.eql(expect.toString());
+      });
+    });
+    context('given invalid regex', function () {
+      it('should return empty regex', function () {
+        var expect = new RegExp('.^');
+        var actual = P.stringToRegexp('[∂fafafa');
+        actual.should.be.type('object');
+        actual.toString().should.eql(expect.toString());
+      });
+    });
+  });
+
   describe('replaceByRegex', function () {
     it('should skip on invalid regex', function () {
       var text = 'some text some text';
       assert.equal(text, P.replaceByRegexp('[sdfsd', '–', text));
     });
-
     it('should strip by regex', function () {
       var text = 'some text some text';
       var expect = 'some–text–some–text';
@@ -41,35 +59,7 @@ describe('Parser', function () {
     });
   });
 
-  describe('stringToRegexp', function () {
-    context('given nothing', function () {
-      it('should return empty regex', function () {
-        var expect = new RegExp('.^', '');
-        var actual = P.stringToRegexp();
-        actual.should.be.type('object');
-        actual.toString().should.eql(expect.toString());
-      });
-    });
-    context('given invalid regex', function () {
-      it('should return empty regex', function () {
-        var expect = new RegExp('.^');
-        var actual = P.stringToRegexp('[∂fafafa');
-        actual.should.be.type('object');
-        actual.toString().should.eql(expect.toString());
-      });
-    });
-
-  });
-
   describe('extractWords', function () {
-
-    context('given empty string', function () {
-      it('should return empty dictionary', function () {
-        var dictionary = {};
-        P.extractWords(dictionary, '', '');
-        dictionary.should.have.property('words', {});
-      });
-    });
 
     context('given word', function () {
       it('should return dictionary with word', function () {

@@ -36,18 +36,6 @@ function UCFirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-function uniqueES5(arr) {
-  var n = {},
-      r = [];
-  for (var i = 0; i < arr.length; i++) {
-    if (!n[arr[i]]) {
-      n[arr[i]] = true;
-      r.push(arr[i]);
-    }
-  }
-  return r;
-}
-
 function unique(arr) {
   if (typeof Set !== 'undefined') {
     var out = [],
@@ -62,7 +50,15 @@ function unique(arr) {
     }
     return out;
   } else {
-    return uniqueES5(arr);
+    var n = {},
+        r = [];
+    for (var i = 0; i < arr.length; ++i) {
+      if (!n[arr[i]]) {
+        n[arr[i]] = true;
+        r.push(arr[i]);
+      }
+    }
+    return r;
   }
 }
 

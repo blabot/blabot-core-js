@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha --compilers js:babel/register",
     "dev": "mocha -w --compilers js:babel/register",
-    "perf": "mocha -w --slow 1 --compilers js:babel/register",
-    "perfonly": "mocha -w --slow 1 --compilers js:babel/register test/performanceTest.js",
+    "devgen": "mocha -w --slow 1 --compilers js:babel/register test/generator*",
+    "devpar": "mocha -w --slow 1 --compilers js:babel/register test/parser*",
     "build": "babel lib --out-dir es5"
   },
   "repository": {

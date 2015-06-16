@@ -22,31 +22,31 @@ var dict = {
     '<7>, <7>…'
   ]
 };
-describe('Cache', function () {
-  describe('enableCache', function () {
-    it('should fill up and enable cache', function () {
-      G.enableCache(dict);
-      var c = G.getCache();
-      c[0].should.be.true;
-      c[1].length.should.not.eql(0);
-      c[2].length.should.not.eql(0);
-    });
-  });
-  describe('disableCache', function () {
-    it('should empty and disable cache', function(){
-      G.disableCache();
-      var c = G.getCache();
-      c[0].should.be.false;
-      c[1].length.should.be.eql(0);
-      c[2].length.should.be.eql(0);
-    });
-  });
-});
-
 describe('Generator Performance', function () {
+  describe('Cache', function () {
+    describe('enableCache', function () {
+      it('should fill up and enable cache', function () {
+        G.enableCache(dict);
+        var c = G.getCache();
+        c[0].should.be.true;
+        c[1].length.should.not.eql(0);
+        c[2].length.should.not.eql(0);
+      });
+    });
+    describe('disableCache', function () {
+      it('should empty and disable cache', function () {
+        G.disableCache();
+        var c = G.getCache();
+        c[0].should.be.false;
+        c[1].length.should.be.eql(0);
+        c[2].length.should.be.eql(0);
+      });
+    });
+  });
+
   describe('Without Cache', function () {
 
-    beforeEach(function(){
+    beforeEach(function () {
       G.disableCache();
     });
 
@@ -82,11 +82,11 @@ describe('Generator Performance', function () {
 
   describe('With Cache', function () {
 
-    beforeEach(function(){
+    beforeEach(function () {
       G.enableCache(dict);
     });
 
-    afterEach(function(){
+    afterEach(function () {
       G.disableCache();
     });
 
