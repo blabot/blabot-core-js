@@ -1,6 +1,6 @@
 {
   "name": "blabot-core",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "Blabot core engine powered by JavaScript",
   "main": "lib/blabot.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "build-core": "browserify -g uglifyify lib/blabot.js -s blabot -o static/blabot.min.js",
     "build-gen": "browserify -g uglifyify lib/generator.js -s blabot-generator -o static/blabot-generator.min.js",
     "build-par": "browserify -g uglifyify lib/parser.js -s blabot-parser -o static/blabot-parser.min.js",
-    "build" : "npm run build-par && npm run build-gen && npm run build-core"
+    "build": "npm run build-par && npm run build-gen && npm run build-core"
   },
   "repository": {
     "type": "git",
