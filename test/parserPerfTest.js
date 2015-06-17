@@ -7,8 +7,8 @@ describe('Parser Performance', function () {
   var text = "Příliš \nžluťoučký  \tkůň , pěl \rpříšerné ódy...";
   var text1 = "Věta prvá?  Za ní, druhá! Třetí - pěkně vedle ní. ";
   var badtext = "Toto je KURVÁ vlastně doprdelé slušný text pÍČo!";
-  var longtext = text.repeat(20);
-  var longtext1 = text1.repeat(20);
+  var longtext = new Array(21).join(text);
+  var longtext1 = new Array(21).join(text1);
 
   it('should convert stringToRegexp fast', function () {
     for (var i = 0; i < count; i++)

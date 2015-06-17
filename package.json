@@ -2,13 +2,16 @@
   "name": "blabot-core",
   "version": "0.4.5",
   "description": "Blabot core engine powered by JavaScript",
-  "main": "es5/blabot.js",
+  "main": "lib/blabot.js",
   "scripts": {
-    "test": "mocha --compilers js:babel/register",
-    "dev": "mocha -w --compilers js:babel/register",
-    "devgen": "mocha -w --slow 1 --compilers js:babel/register test/generator*",
-    "devpar": "mocha -w --slow 1 --compilers js:babel/register test/parser*",
-    "build": "babel lib --out-dir es5"
+    "test": "mocha",
+    "dev": "mocha -w",
+    "devgen": "mocha -w --slow 1 test/generator*",
+    "devpar": "mocha -w --slow 1 test/parser*",
+    "build-core": "browserify -g uglifyify lib/blabot.js -s blabot -o static/blabot.min.js",
+    "build-gen": "browserify -g uglifyify lib/generator.js -s blabot-generator -o static/blabot-generator.min.js",
+    "build-par": "browserify -g uglifyify lib/parser.js -s blabot-parser -o static/blabot-parser.min.js",
+    "build" : "npm run build-par && npm run build-gen && npm run build-core"
   },
   "repository": {
     "type": "git",
@@ -25,9 +28,11 @@
   },
   "homepage": "https://github.com/blabot/blabot-core-js",
   "devDependencies": {
-    "babel": "^5.4.7",
+    "browserify": "^10.2.4",
     "mocha": "^2.2.5",
-    "should": "^6.0.3"
+    "should": "^6.0.3",
+    "uglifyify": "^3.0.1",
+    "uglifyjs": "^2.4.10"
   },
   "dependencies": {}
 }
