@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Blabot – Static Test</title>
+    <script src="http://blabot.github.io/blabot-core-js/static/blabot.min.js"></script>
+    <script src="http://blabot.github.io/blabot-core-js/static/blabot-parser.min.js"></script>
+    <script src="http://blabot.github.io/blabot-core-js/static/blabot-generator.min.js"></script>
+</head>
+<body>
+    <h1>Blabot – Static Tests</h1>
+
+    <h2>Blabot - Static APIs</h2>
+    <h3>Blabot (core)</h3>
+    <script>
+        document.write(Object.keys(window.blabot));
+    </script>
+
+    <h3>Parser</h3>
+    <script>
+        document.write(Object.keys(window.blabotParser));
+    </script>
+
+    <h3>Generator</h3>
+    <script>
+        document.write(Object.keys(window.blabotGenerator));
+    </script>
+
+    <h2>Blabot full usage test</h2>
+    <script>
+        var text = "“Tohle mně stálo za to!” myslel si pan G. H. Bondy. “Nějaké patentní šle; nějaký podvůdek nebo bláznova hračka; a já s tím ztrácím pět minut! I já už blbnu. Malé poměry. A žádný, žádný rozmach!”" +
+                "Prezident Bondy se nyní položil do houpací židle, aby pohodlněji procítil celou trpkost malých poměrů. Pravda, MEAS má deset továren a třicet čtyři tisíce dělníků. MEAS vede v železe. MEAS je v kotlích bez konkurence. Rošty MEAS jsou světová značka. Ale za dvacet let práce, panebože, by se jinde pořídilo něco většího –" +
+                "G. H. Bondy se prudce posadil. “Inženýr Marek, inženýr Marek! Počkejme, není to snad zrzavý Marek, jak se honem jmenoval, Rudolf, Ruda Marek, kamarád Ruda z techniky? Skutečně, tady v inzerátě je: inž. R. Marek. Rudo, ty kujóne, je to možno? A chudáku, ty jsi to dopracoval! Prodávat ,velmi lukrativní vynález‘, haha, ,z osobních příčin‘; my už známe takové osobní příčiny; nemáš peníze, viď? Chtěl bys chytit průmyslovou kavku na nějaký usmolený patent; inu, vždycky jsi býval trochu posedlý myšlenkou převrátit svět. Ach, holenku, kde jsou naše velké myšlenky! Naše velkodušné a šarlatánské mládí!”" +
+                "Prezident Bondy se zase položil. “Snad je to opravdu Marek,” přemítal. “Ale Marek byl vědecká hlava. Trochu mluvka, ale ten kluk měl něco geniálního. Měl myšlenky. Jinak děsně nepraktický člověk. Vlastně úplný blázen. Je to divné,” řekl si pan Bondy, “že není profesorem. Přes dvacet let jsem ho neviděl, bůhví co všechno dělal; snad úplně sešel. Ba jistě sešel; bydlí až v Břevnově, chudák… a živí se vynálezy! Strašný konec!”" +
+                "Pan Bondy se pokoušel představit si bídu sešlého vynálezce. Podařilo se mu vymyslit si úžasně vousatou, rozcuchanou hlavu; stěny kolem jsou pochmurné a papírové jako ve filmu. Nábytek žádný; v koutě matrace, na stole ubohý model z cívek, hřebíků a ohořelých sirek, kalné okénko vede na dvorek. A do této nevýslovné nuzoty vkročí návštěva v kožichu. “Jdu se podívat na váš vynález.” Poloslepý vynálezce nepozná starého kamaráda; pokorně uklání ježatou hlavu, hledá, kam hosta posadit, a nyní, ó dobrý bože, zkřehlými, ubohými, třesoucími se prsty zkouší uvést v pohyb svůj žalostný vynález, jakési pošetilé perpetuum mobile, a zmateně brebentí, jak by to mělo běžet, jak by to jistě běželo, kdyby – kdyby měl – kdyby mohl koupit – – Návštěva v kožichu bloudí očima po celé té podstřešní komůrce; a náhle vytáhne z kapsy koženou tašku a klade na stůl tisícovku, druhou (“Dost už!” ulekl se sám pan Bondy.) a ještě třetí. (“Tisícovka by to konečně také spravila – prozatím,” myslí něco v panu Bondym.) “To je… na další práci, pane Marku; ne ne, nejste docela ničím povinen. Cože, kdo jsem? Na tom nezáleží. Myslete si, že váš přítel.”" +
+                "Prezident Bondy byl velmi spokojen a dojat tímto obrazem. “Pošlu k Markovi svého sekretáře,” umínil si, “hned, nebo hned zítra. A co budu dělat dnes? Je svátek, do továrny nejdu; mám vlastně volno – Ach, ty malé poměry! Po celý den nemít co dělat! Což kdybych sám dnes – –”"
+        var dict = {
+            'config': {
+                'normalizingRules': [
+                    ['\\.\\.\\.', '.'],
+                    ['vs.',''],
+                    [' ,',' '],
+                    ['‘',' '],
+                    ['”|“',''],
+                    ['G\\.|H\\.|inž\\.|R\\.| K\\.|\\(|\\)',''],
+                    ['( –)+','.'],
+                    ['\\s+', ' '],
+                    [' , ', ', ']
+                ],
+                'badWords': [],
+                'specialWordChars': "'—.",
+                'sentenceDelimiters': "!.?…"
+            }
+        };
+        var B = window.blabot;
+        B.parse(dict, text);
+        document.write(B.getParagraphs(dict,5).map(function(p){ return '<p>'+p+'</p>'}).join('\n'));
+        console.log(dict);
+    </script>
+</body>
+</html>
