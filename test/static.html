@@ -2,31 +2,31 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Blabot – Static Test</title>
-    <script src="http://blabot.github.io/blabot-core-js/static/blabot.min.js"></script>
-    <script src="http://blabot.github.io/blabot-core-js/static/blabot-parser.min.js"></script>
-    <script src="http://blabot.github.io/blabot-core-js/static/blabot-generator.min.js"></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    </style>
+
 </head>
 <body>
     <h1>Blabot – Static Tests</h1>
+    <h2>Blabot full usage test</h2>
+    <div id="blabol">Loading…</div>
 
     <h2>Blabot - Static APIs</h2>
     <h3>Blabot (core)</h3>
-    <script>
-        document.write(Object.keys(window.blabot));
-    </script>
-
+    <div id="core-api">Loading…</div>
     <h3>Parser</h3>
-    <script>
-        document.write(Object.keys(window.blabotParser));
-    </script>
-
+    <div id="parser-api">Loading…</div>
     <h3>Generator</h3>
-    <script>
-        document.write(Object.keys(window.blabotGenerator));
-    </script>
+    <div id="generator-api">Loading…</div>
 
-    <h2>Blabot full usage test</h2>
+    <script src="http://blabot.github.io/blabot-core-js/static/blabot.min.js"></script>
+    <script src="http://blabot.github.io/blabot-core-js/static/blabot-parser.min.js"></script>
+    <script src="http://blabot.github.io/blabot-core-js/static/blabot-generator.min.js"></script>
     <script>
         var text = "“Tohle mně stálo za to!” myslel si pan G. H. Bondy. “Nějaké patentní šle; nějaký podvůdek nebo bláznova hračka; a já s tím ztrácím pět minut! I já už blbnu. Malé poměry. A žádný, žádný rozmach!”" +
                 "Prezident Bondy se nyní položil do houpací židle, aby pohodlněji procítil celou trpkost malých poměrů. Pravda, MEAS má deset továren a třicet čtyři tisíce dělníků. MEAS vede v železe. MEAS je v kotlích bez konkurence. Rošty MEAS jsou světová značka. Ale za dvacet let práce, panebože, by se jinde pořídilo něco většího –" +
@@ -54,8 +54,19 @@
         };
         var B = window.blabot;
         B.parse(dict, text);
-        document.write(B.getParagraphs(dict,5).map(function(p){ return '<p>'+p+'</p>'}).join('\n'));
-        console.log(dict);
+        document.getElementById("blabol")
+                .innerHTML = B.getParagraphs(dict,5)
+                .map(function(p){ return '<p>'+p+'</p>'})
+                .join('\n');
+
+        document.getElementById("core-api")
+                .innerHTML = Object.keys(window.blabot)
+                .join(', ');
+        document.getElementById("parser-api")
+                .innerHTML = Object.keys(window.blabotParser).join(', ');
+        document.getElementById("generator-api")
+                .innerHTML = Object.keys(window.blabotGenerator)
+                .join(', ');
     </script>
 </body>
 </html>
