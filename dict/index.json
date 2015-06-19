@@ -1,6 +1,6 @@
 {
-  "cs": [
-    {
+  "cs": {
+    "cs.json": {
       "name": "Modern Czech",
       "nameLocal": "Moderní čeština",
       "description": "Universal czech dictionary based on mix of several modern texts.",
@@ -10,7 +10,7 @@
       "updated": "2015-06-18 22:16:32",
       "language": "cs"
     },
-    {
+    "cs-capek.json": {
       "name": "Čapek czech",
       "nameLocal": "Čapekovská čeština",
       "description": "Dictionary based on stories by Jarel Čapek",
@@ -20,7 +20,7 @@
       "updated": "2015-06-18 21:23:00",
       "language": "cs"
     },
-    {
+    "cs-sherlock.json": {
       "name": "Sherlock Holmes",
       "nameLocal": "Sherlock Holmes",
       "description": "Dictionary based on Sherlock Holmes famous strories by Arthur Conan Doyle",
@@ -30,7 +30,8 @@
       "updated": "2015-06-18 21:08:03",
       "language": "cs"
     },
-    {
+    "cs-legal.json": {
+      "file": "",
       "name": "Legal czech",
       "nameLocal": "Právnická čeština",
       "description": "Dictionary based on czech Copyright Act",
@@ -40,5 +41,5 @@
       "updated": "2015-06-18 21:29:24",
       "language": "cs"
     }
-  ]
+  }
 }
