@@ -122,7 +122,7 @@ describe('Generator', function () {
       sentences: [
         '<1> – <2>!',
         '<3>, <3>?',
-        '<111>, <111>…'
+        '<7>, <7>…'
       ]
     };
     it('should return random word from dictionary', function(){
@@ -146,9 +146,30 @@ describe('Generator', function () {
       var actual = G.getParagraph(dict).split(' ');
       actual.length.should.be.above(4);
       actual.length.should.be.below(11);
-      var actualUq = G.unique(actual);
+      var actualUq = actual.filter(function (elem, pos) {
+        return actual.indexOf(elem) == pos;
+      });
       actualUq.length.should.be.eql(1);
       actualUq[0].should.eql('A!');
+    });
+  });
+
+  describe('more instances', function(){
+    it('should not share cache', function(){
+      var G1 = G.createGenerator();
+      var G2 = G.createGenerator();
+      var dict = {
+        words: {
+          '1': ['a', 'b'],
+          '2': ['aa', 'bb'],
+          '3': ['aaa', 'bbb'],
+          '8': ['fourfour', '12345678']
+        },
+        sentences: [ '<1> – <2>!', '<3>, <3>?', '<8>, <8>…']
+      };
+
+      G1.enableCache(dict);
+      G2.getCache().should.not.eql(G1.getCache());
     });
   });
 });

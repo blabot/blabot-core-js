@@ -1,4 +1,3 @@
-var should = require('should');
 var G = require('../lib/generator');
 
 var count = 10e4;
