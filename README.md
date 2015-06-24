@@ -91,6 +91,9 @@ Empty english-dictionary.json file may looks like this:
 }
 ```
 
+You can find dictionaries in [blabot-dictionaries repo.](https://github.com/blabot/blabot-dictionaries)
+
+
 ## Blabot CLI
 
 Feel free to use [Blabot CLI](https://github.com/blabot/blabot-cli) for simple
