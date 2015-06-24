@@ -154,22 +154,4 @@ describe('Generator', function () {
     });
   });
 
-  describe('more instances', function(){
-    it('should not share cache', function(){
-      var G1 = G.createGenerator();
-      var G2 = G.createGenerator();
-      var dict = {
-        words: {
-          '1': ['a', 'b'],
-          '2': ['aa', 'bb'],
-          '3': ['aaa', 'bbb'],
-          '8': ['fourfour', '12345678']
-        },
-        sentences: [ '<1> – <2>!', '<3>, <3>?', '<8>, <8>…']
-      };
-
-      G1.enableCache(dict);
-      G2.getCache().should.not.eql(G1.getCache());
-    });
-  });
 });

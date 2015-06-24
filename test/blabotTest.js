@@ -142,22 +142,4 @@ describe('Blabot', function () {
     });
   });
 
-  describe('more instances', function () {
-    it('should not share cache', function () {
-      var B1 = B.createBlabot();
-      var B2 = B.createBlabot();
-      var dict = {
-        words: {
-          '1': ['a', 'b'],
-          '2': ['aa', 'bb'],
-          '3': ['aaa', 'bbb'],
-          '8': ['fourfour', '12345678']
-        },
-        sentences: ['<1> – <2>!', '<3>, <3>?', '<8>, <8>…']
-      };
-
-      B1.enableCache(dict);
-      assert.notEqual(B2.getCache(), B1.getCache());
-    });
-  });
 });

@@ -22,32 +22,6 @@ var dict = {
   ]
 };
 describe('Generator Performance', function () {
-  describe('Cache', function () {
-    describe('enableCache', function () {
-      it('should fill up and enable cache', function () {
-        G.enableCache(dict);
-        var c = G.getCache();
-        c[0].should.be.true;
-        c[1].length.should.not.eql(0);
-        c[2].length.should.not.eql(0);
-      });
-    });
-    describe('disableCache', function () {
-      it('should empty and disable cache', function () {
-        G.disableCache();
-        var c = G.getCache();
-        c[0].should.be.false;
-        c[1].length.should.be.eql(0);
-        c[2].length.should.be.eql(0);
-      });
-    });
-  });
-
-  describe('Without Cache', function () {
-
-    beforeEach(function () {
-      G.disableCache();
-    });
 
     it('should getSentence fast', function () {
       for (var i = 0; i < count; i++)
@@ -75,47 +49,5 @@ describe('Generator Performance', function () {
     it('should getWords fast', function () {
       G.getWords(dict, count);
     });
-  });
-
-  // ======
-
-  describe('With Cache', function () {
-
-    beforeEach(function () {
-      G.enableCache(dict);
-    });
-
-    afterEach(function () {
-      G.disableCache();
-    });
-
-    it('should getSentence fast', function () {
-      for (var i = 0; i < count; i++)
-        G.getSentence(dict);
-    });
-
-    it('should getSentences fast', function () {
-      G.getSentences(dict, count);
-    });
-
-    it('should getParagraph fast', function () {
-      for (var i = 0; i < count; i++) {
-        G.getParagraph(dict);
-      }
-    });
-
-    it('should getParagraphs fast', function () {
-      G.getParagraphs(dict, count);
-    });
-
-    it('should getWord fast', function () {
-      for (var i = 0; i < count; i++)
-        G.getWord(dict);
-    });
-
-    it('should getWords fast', function () {
-      G.getWords(dict, count);
-    });
-  });
 
 });
