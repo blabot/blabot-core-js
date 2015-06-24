@@ -37,15 +37,6 @@ console.log(sentences);
 - `Blabot.getParagraphs(dictionary, count)`
   - Return N random paragraphs as array
   
-### Cache
-
-- `Blabot.enableCache(dictionary, [size=7])`
-  - Warm up cache and all generator will automagically became superfast  
-- `Blabot.disableCache()`
-  - Disable all cache goodness and purge cache
-- `Blabot.getCache()`
-  - Returns cache object
-
 ### Parser
 
 - `Blabot.parse(dictionary, text)`
