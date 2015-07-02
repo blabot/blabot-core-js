@@ -15,7 +15,7 @@ describe('Generator', function () {
         sentences: ['<1>, <2>–<3>?']
       };
 
-      var sentence = G.getSentence(dict);
+      var sentence = G.sentence(dict);
       assert.equal('A, bb–ccc?', sentence);
     });
     it('given more complex dictionary should build sentence', function(){
@@ -49,7 +49,7 @@ describe('Generator', function () {
       ];
 
       for(var i=12; i>0; i--){
-        var sentence = G.getSentence(dict);
+        var sentence = G.sentence(dict);
         possibleSentences.should.containEql(sentence);
       }
     });
@@ -87,7 +87,7 @@ describe('Generator', function () {
       ];
 
       it('should build one sentence as default', function(){
-        var sentences = G.getSentences(dict);
+        var sentences = G.sentences(dict);
         assert.equal(sentences.length, 1);
         var s = 'some sentence';
         sentences.forEach(function(sentence){
@@ -99,7 +99,7 @@ describe('Generator', function () {
 
       it('should build sentence by count', function(){
         var count = 42;
-        var sentences = G.getSentences(dict, count);
+        var sentences = G.sentences(dict, count);
         assert.equal(sentences.length, count);
         sentences.forEach(function(sentence){
           possibleSentences.should.containEql(sentence);
@@ -127,7 +127,7 @@ describe('Generator', function () {
     };
     it('should return random word from dictionary', function(){
       for (var i=42; i>0;i--){
-        var actual = G.getWord(dict);
+        var actual = G.word(dict);
         dict.words[actual.length].should.containEql(actual);
       }
     });
@@ -143,7 +143,7 @@ describe('Generator', function () {
       ]
     };
     it('should return 5-10 sentences separated by space', function(){
-      var actual = G.getParagraph(dict).split(' ');
+      var actual = G.paragraph(dict).split(' ');
       actual.length.should.be.above(4);
       actual.length.should.be.below(11);
       var actualUq = actual.filter(function (elem, pos) {

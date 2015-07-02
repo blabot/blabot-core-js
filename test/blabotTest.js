@@ -15,8 +15,21 @@ describe('Blabot', function () {
         sentences: ['<1>, <2>–<3>?']
       };
 
-      var sentence = B.getSentence(dict);
-      assert.equal('A, bb–ccc?', sentence);
+      B.dictionary(dict);
+      assert.equal('A, bb–ccc?', B.sentence());
+    });
+    it('given dictionary in constructor should build sentence', function(){
+      var dict = {
+        words: {
+          '1': ['a'],
+          '2': ['bb'],
+          '3': ['ccc']
+        },
+        sentences: ['<1>, <2>–<3>?']
+      };
+
+      var B1 = require('..').createBlabot(dict);
+      assert.equal('A, bb–ccc?', B1.sentence());
     });
     it('given more complex dictionary should build sentence', function () {
       var dict = {
@@ -47,9 +60,9 @@ describe('Blabot', function () {
         'B – aa!',
         'B – bb!'
       ];
-
+      B.dictionary(dict);
       for (var i = 12; i > 0; i--) {
-        var sentence = B.getSentence(dict);
+        var sentence = B.sentence();
         possibleSentences.should.containEql(sentence);
       }
     });
@@ -87,7 +100,8 @@ describe('Blabot', function () {
 
     it('should build sentence by count', function () {
       var count = 42;
-      var sentences = B.getSentences(dict, count);
+      B.dictionary(dict);
+      var sentences = B.sentences(count);
       assert.equal(sentences.length, count);
       sentences.forEach(function (sentence) {
         possibleSentences.should.containEql(sentence);
@@ -113,8 +127,9 @@ describe('Blabot', function () {
       ]
     };
     it('should return random word from dictionary', function () {
+      B.dictionary(dict);
       for (var i = 42; i > 0; i--) {
-        var actual = B.getWord(dict);
+        var actual = B.word();
         dict.words[actual.length].should.containEql(actual);
       }
     });
@@ -130,8 +145,8 @@ describe('Blabot', function () {
       ]
     };
     it('should return 5-10 sentences separated by space', function () {
-
-      var actual = B.getParagraph(dict).split(' ');
+      B.dictionary(dict);
+      var actual = B.paragraph().split(' ');
       actual.length.should.be.above(4);
       actual.length.should.be.below(11);
       var actualUq = actual.filter(function (elem, pos) {

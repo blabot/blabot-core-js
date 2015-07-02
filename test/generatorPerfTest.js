@@ -25,29 +25,29 @@ describe('Generator Performance', function () {
 
     it('should getSentence fast', function () {
       for (var i = 0; i < count; i++)
-        G.getSentence(dict);
+        G.sentence(dict);
     });
 
     it('should getSentences fast', function () {
-      G.getSentences(dict, count);
+      G.sentences(dict, count);
     });
 
     it('should getParagraph fast', function () {
       for (var i = 0; i < count; i++)
-        G.getParagraph(dict);
+        G.paragraph(dict);
     });
 
     it('should getParagraphs fast', function () {
-      G.getParagraphs(dict, count);
+      G.paragraphs(dict, count);
     });
 
     it('should getWord fast', function () {
       for (var i = 0; i < count; i++)
-        G.getWord(dict);
+        G.word(dict);
     });
 
     it('should getWords fast', function () {
-      G.getWords(dict, count);
+      G.words(dict, count);
     });
 
 });
